@@ -1,0 +1,475 @@
+'use client'
+
+import { useState } from 'react'
+import { Download, FileCode, Package, Search, X, Code, Info } from 'lucide-react'
+import { motion, AnimatePresence } from 'motion/react'
+import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Badge } from '@/components/ui/badge'
+import { Avatar } from '@/components/ui/avatar'
+import { Switch } from '@/components/ui/switch'
+import { Tooltip } from '@/components/ui/tooltip'
+import { TagInput } from '@/components/ui/tag-input'
+import { Accordion } from '@/components/ui/accordion'
+
+export default function ComponentsDemoPage() {
+	const [selectedCategory, setSelectedCategory] = useState('all')
+	const [selectedComponent, setSelectedComponent] = useState<string | null>(null)
+	const [searchQuery, setSearchQuery] = useState('')
+	const [tagInputTags, setTagInputTags] = useState(['React', 'TypeScript'])
+	const [buttonClickCount, setButtonClickCount] = useState(0)
+	const [inputValue, setInputValue] = useState('')
+	const [switchChecked, setSwitchChecked] = useState(true)
+
+	const componentPreviews: Record<string, React.ReactNode> = {
+		button: (
+			<div className='w-full max-w-xs space-y-3 overflow-visible'>
+				{/* 主要变体 */}
+				<div className='flex flex-wrap gap-2 justify-center'>
+					<Button onClick={() => setButtonClickCount(count => count + 1)} variant='primary' size='md'>
+						点击 ({buttonClickCount})
+					</Button>
+					<Button variant='secondary' size='md'>次要</Button>
+					<Button variant='outline' size='md'>轮廓</Button>
+					<Button variant='ghost' size='md'>幽灵</Button>
+				</div>
+				{/* 状态变体 */}
+				<div className='flex flex-wrap gap-2 justify-center'>
+					<Button variant='danger' size='md'>危险</Button>
+					<Button variant='success' size='md'>成功</Button>
+					<Button variant='warning' size='md'>警告</Button>
+					<Button variant='glass' size='md'>玻璃态</Button>
+				</div>
+				{/* 尺寸和加载状态 */}
+				<div className='flex flex-wrap items-center gap-2 justify-center'>
+					<Button variant='primary' size='sm'>小号</Button>
+					<Button variant='primary' size='md'>中号</Button>
+					<Button variant='primary' size='lg'>大号</Button>
+					<Button variant='outline' size='md' loading>加载中</Button>
+				</div>
+			</div>
+		),
+		card: (
+			<Card clickable className='w-full max-w-[200px]'>
+				<div className='space-y-2 p-3'>
+					<div className='flex items-center gap-2'>
+						<Avatar src='/images/avatar.png' alt='User' size='sm' />
+						<div>
+							<h4 className='font-bold text-primary text-sm'>用户名</h4>
+							<p className='text-secondary text-[10px]'>组件演示</p>
+						</div>
+					</div>
+					<div className='flex items-center justify-between'>
+						<Badge variant='primary' size='sm'>Pro</Badge>
+						<span className='text-secondary text-[10px]'>2小时前</span>
+					</div>
+				</div>
+			</Card>
+		),
+		input: (
+			<div className='w-full max-w-[250px] space-y-2'>
+				<Input label='用户名' placeholder='请输入...' value={inputValue} onChange={e => setInputValue(e.target.value)} />
+				<Input placeholder='搜索...' icon={<Search size={16} />} />
+			</div>
+		),
+		badge: (
+			<div className='flex flex-wrap gap-1.5 justify-center'>
+				<Badge size='sm'>默认</Badge>
+				<Badge variant='primary' size='sm'>主要</Badge>
+				<Badge variant='secondary' size='sm'>次要</Badge>
+				<Badge variant='success' size='sm'>成功</Badge>
+				<Badge variant='warning' size='sm'>警告</Badge>
+				<Badge variant='danger' size='sm'>危险</Badge>
+			</div>
+		),
+		avatar: (
+			<div className='flex items-center gap-3 justify-center'>
+				<Avatar src='/images/avatar.png' alt='User' size='lg' />
+				<Avatar src='/images/avatar.png' alt='User' size='md' />
+				<Avatar src='/images/avatar.png' alt='User' size='sm' />
+			</div>
+		),
+		switch: (
+			<div className='space-y-3'>
+				<Switch checked={switchChecked} onChange={setSwitchChecked} label='通知' size='sm' />
+				<Switch checked={!switchChecked} onChange={val => setSwitchChecked(!val)} label='夜间模式' size='sm' />
+				<Switch checked={true} label='自动保存' disabled size='sm' />
+			</div>
+		),
+		tooltip: (
+			<div className='flex flex-wrap gap-2 justify-center'>
+				<Tooltip content='顶部提示' position='top'>
+					<Button variant='outline' size='sm'>顶部</Button>
+				</Tooltip>
+				<Tooltip content='底部提示' position='bottom'>
+					<Button variant='outline' size='sm'>底部</Button>
+				</Tooltip>
+				<Tooltip content='左侧提示' position='left'>
+					<Button variant='outline' size='sm'>左侧</Button>
+				</Tooltip>
+			</div>
+		),
+		'tag-input': (
+			<div className='w-full max-w-[280px]'>
+				<TagInput tags={tagInputTags} onTagsChange={setTagInputTags} placeholder='标签...' maxTags={5} />
+			</div>
+		),
+		accordion: (
+			<Accordion
+				items={[
+					{ id: '1', title: '如何使用？', content: '复制组件文件到你的项目中，通过 import 语句引入即可使用。' },
+					{ id: '2', title: '可以自定义吗？', content: '当然可以！组件支持通过 className prop 传入自定义样式。' }
+				]}
+			/>
+		)
+	}
+
+	const components = [
+		{
+			id: 'button',
+			name: 'Button',
+			category: 'basic',
+			description: '通用按钮组件，支持多种样式、尺寸和状态',
+			icon: '🔘',
+			props: [
+				{ name: 'variant', type: "'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'success' | 'warning' | 'link' | 'glass'", default: "'primary'", description: '按钮变体' },
+				{ name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: '按钮尺寸' },
+				{ name: 'disabled', type: 'boolean', default: 'false', description: '是否禁用' },
+				{ name: 'loading', type: 'boolean', default: 'false', description: '是否加载中' },
+				{ name: 'fullWidth', type: 'boolean', default: 'false', description: '是否全宽' }
+			]
+		},
+		{
+			id: 'card',
+			name: 'Card',
+			category: 'layout',
+			description: '玻璃态卡片组件，支持动画、交互和多种样式',
+			icon: '📦',
+			props: [
+				{ name: 'children', type: 'React.ReactNode', default: '-', description: '卡片内容' },
+				{ name: 'className', type: 'string', default: '-', description: '自定义类名' },
+				{ name: 'clickable', type: 'boolean', default: 'false', description: '是否可点击' },
+				{ name: 'noPadding', type: 'boolean', default: 'false', description: '是否无内边距' }
+			]
+		},
+		{
+			id: 'input',
+			name: 'Input',
+			category: 'form',
+			description: '输入框组件，支持图标、标签和验证',
+			icon: '⌨️',
+			props: [
+				{ name: 'label', type: 'string', default: '-', description: '标签文本' },
+				{ name: 'placeholder', type: 'string', default: '-', description: '占位文本' },
+				{ name: 'icon', type: 'ReactNode', default: '-', description: '图标（左侧）' },
+				{ name: 'leftIcon', type: 'ReactNode', default: '-', description: '左侧图标' },
+				{ name: 'rightIcon', type: 'ReactNode', default: '-', description: '右侧图标' },
+				{ name: 'error', type: 'string', default: '-', description: '错误提示' }
+			]
+		},
+		{
+			id: 'badge',
+			name: 'Badge',
+			category: 'basic',
+			description: '标签组件，支持多种颜色和尺寸变体',
+			icon: '🏷️',
+			props: [
+				{ name: 'variant', type: "'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger'", default: "'default'", description: '标签颜色' },
+				{ name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: '标签尺寸' }
+			]
+		},
+		{
+			id: 'avatar',
+			name: 'Avatar',
+			category: 'basic',
+			description: '头像组件，支持多种尺寸和交互动画',
+			icon: '👤',
+			props: [
+				{ name: 'src', type: 'string', default: 'required', description: '图片地址' },
+				{ name: 'alt', type: 'string', default: 'required', description: '替代文本' },
+				{ name: 'size', type: "'sm' | 'md' | 'lg' | 'xl'", default: "'md'", description: '头像尺寸' }
+			]
+		},
+		{
+			id: 'switch',
+			name: 'Switch',
+			category: 'form',
+			description: '开关组件，支持多种尺寸、状态和动画',
+			icon: '🔀',
+			props: [
+				{ name: 'checked', type: 'boolean', default: 'false', description: '是否选中' },
+				{ name: 'onChange', type: '(checked: boolean) => void', default: '-', description: '变化回调' },
+				{ name: 'disabled', type: 'boolean', default: 'false', description: '是否禁用' },
+				{ name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: '开关尺寸' },
+				{ name: 'label', type: 'string', default: '-', description: '标签文本' }
+			]
+		},
+		{
+			id: 'tooltip',
+			name: 'Tooltip',
+			category: 'basic',
+			description: '提示框组件，支持四个方向和自定义延迟',
+			icon: '💡',
+			props: [
+				{ name: 'content', type: 'ReactNode', default: 'required', description: '提示内容' },
+				{ name: 'position', type: "'top' | 'bottom' | 'left' | 'right'", default: "'top'", description: '显示位置' },
+				{ name: 'delay', type: 'number', default: '200', description: '延迟时间(ms)' }
+			]
+		},
+		{
+			id: 'tag-input',
+			name: 'TagInput',
+			category: 'form',
+			description: '标签输入框组件，支持添加、删除和数量限制',
+			icon: '📝',
+			props: [
+				{ name: 'tags', type: 'string[]', default: 'required', description: '标签列表' },
+				{ name: 'onTagsChange', type: '(tags: string[]) => void', default: 'required', description: '标签变化回调' },
+				{ name: 'placeholder', type: 'string', default: '-', description: '占位文本' },
+				{ name: 'maxTags', type: 'number', default: '-', description: '最大标签数' }
+			]
+		},
+		{
+			id: 'accordion',
+			name: 'Accordion',
+			category: 'layout',
+			description: '手风琴组件，支持单选、多选和动画',
+			icon: '📂',
+			props: [
+				{ name: 'items', type: 'AccordionItem[]', default: 'required', description: '手风琴项' },
+				{ name: 'allowMultiple', type: 'boolean', default: 'false', description: '是否允许多选' },
+				{ name: 'defaultOpen', type: 'string[]', default: '[]', description: '默认展开的项' }
+			]
+		}
+	]
+
+	const categories = [
+		{ id: 'all', name: '全部组件', icon: <Package size={18} /> },
+		{ id: 'basic', name: '基础组件', icon: <div className='text-lg'>🎨</div> },
+		{ id: 'layout', name: '布局组件', icon: <div className='text-lg'>📐</div> },
+		{ id: 'form', name: '表单组件', icon: <div className='text-lg'>📝</div> }
+	]
+
+	const filteredComponents = components
+		.filter(c => selectedCategory === 'all' || c.category === selectedCategory)
+		.filter(c => c.name.toLowerCase().includes(searchQuery.toLowerCase()) || c.description.toLowerCase().includes(searchQuery.toLowerCase()))
+
+	return (
+		<div className='min-h-screen bg-bg p-4 md:p-8'>
+			<div className='mx-auto max-w-7xl'>
+				{/* Header */}
+				<div className='mb-6 text-center md:mb-8'>
+					<div className='mb-3 inline-flex items-center gap-2 rounded-full bg-brand/10 px-3 py-1.5 text-xs font-medium text-brand'>
+						<FileCode size={14} />
+						<span>开源免费 · 即用即走</span>
+					</div>
+					<h1 className='font-averia text-2xl font-bold md:text-4xl'>
+						<span className='text-linear'>UI 组件库</span>
+					</h1>
+					<p className='text-secondary mx-auto mt-3 max-w-xl text-sm md:text-base'>精美的玻璃态设计，完整的 TypeScript 支持，直接复制使用</p>
+				</div>
+
+				{/* Search Bar */}
+				<div className='relative bg-white/80 backdrop-blur mb-6 max-w-2xl mx-auto rounded-[40px] border p-2 shadow-lg'>
+					<div className='relative flex items-center gap-3 px-4'>
+						<Search className='text-secondary' size={18} />
+						<input
+							type='text'
+							value={searchQuery}
+							onChange={e => setSearchQuery(e.target.value)}
+							placeholder='搜索组件名称或描述...'
+							className='flex-1 bg-transparent py-2.5 text-sm outline-none placeholder:text-secondary/50'
+						/>
+						{searchQuery && (
+							<button onClick={() => setSearchQuery('')} className='text-secondary hover:text-primary transition-colors'>
+								<X size={16} />
+							</button>
+						)}
+					</div>
+				</div>
+
+				{/* Category Tabs */}
+				<div className='mb-6 flex flex-wrap justify-center gap-2'>
+					{categories.map(category => (
+						<button
+							key={category.id}
+							onClick={() => {
+								setSelectedCategory(category.id)
+								setSearchQuery('')
+							}}
+							className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all ${
+								selectedCategory === category.id
+									? 'bg-linear text-white shadow-md'
+									: 'relative bg-card border shadow-sm bg-white/60 hover:bg-white/80 text-secondary'
+							}`}>
+							{category.icon}
+							{category.name}
+						</button>
+					))}
+				</div>
+
+				{/* Components Grid */}
+				{filteredComponents.length === 0 ? (
+					<div className='relative bg-card border rounded-[40px] p-6 py-12 text-center shadow-md'>
+						<p className='text-secondary text-base'>没有找到匹配的组件</p>
+					</div>
+				) : (
+					<div className='grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5'>
+						{filteredComponents.map((component, index) => (
+							<motion.div
+								key={component.id}
+								initial={{ opacity: 0, y: 15 }}
+								animate={{ opacity: 1, y: 0 }}
+								transition={{ delay: index * 0.04, duration: 0.35 }}
+								className='flex flex-col group'>
+								{/* Artwork Frame */}
+								<div className='relative bg-card border rounded-[40px] mb-3 overflow-hidden bg-gradient-to-br from-white to-gray-50 shadow-sm group-hover:shadow-md transition-shadow' style={{ minHeight: component.id === 'button' ? '320px' : '260px', maxHeight: component.id === 'button' ? 'none' : '260px' }}>
+									{/* Component Display Area */}
+									<div className='flex items-center justify-center p-5' style={{ height: component.id === 'button' ? 'auto' : '260px' }}>
+										<div className='w-full flex items-center justify-center'>
+											{componentPreviews[component.id]}
+										</div>
+									</div>
+								</div>
+
+								{/* Exhibition Label */}
+								<div className='space-y-1.5 px-0.5'>
+									{/* Title Section */}
+									<div className='flex items-center gap-1.5'>
+										<span className='text-xl'>{component.icon}</span>
+										<h3 className='font-averia text-lg font-bold text-primary'>{component.name}</h3>
+									</div>
+
+									{/* Description */}
+									<p className='text-secondary text-xs leading-relaxed line-clamp-2'>{component.description}</p>
+
+									{/* Category Badge */}
+									<div className='flex items-center justify-between pt-0.5'>
+										<span className='rounded-full bg-brand/10 px-2.5 py-0.5 text-[10px] font-medium text-brand'>
+											{categories.find(c => c.id === component.category)?.name}
+										</span>
+										<span className='text-secondary text-[10px]'>{component.props.length} 属性</span>
+									</div>
+
+									{/* Action Buttons */}
+									<div className='flex gap-1.5 pt-1.5'>
+										<motion.button
+											whileHover={{ scale: 1.02 }}
+											whileTap={{ scale: 0.98 }}
+											onClick={() => setSelectedComponent(component.id)}
+											className='flex flex-1 items-center justify-center gap-1 rounded-lg bg-gradient-to-r from-brand to-brand-secondary px-2.5 py-1.5 text-[11px] font-medium text-white transition-all shadow-sm hover:shadow'>
+											<Info size={12} />
+											详情
+										</motion.button>
+										<motion.button
+											whileHover={{ scale: 1.02 }}
+											whileTap={{ scale: 0.98 }}
+											className='relative bg-card border shadow-sm flex items-center justify-center gap-1 rounded-lg px-2.5 py-1.5 text-[11px] font-medium text-primary transition-all hover:shadow'>
+											<Code size={12} />
+											代码
+										</motion.button>
+									</div>
+								</div>
+							</motion.div>
+						))}
+					</div>
+				)}
+
+				{/* Component Detail Modal */}
+				<AnimatePresence>
+					{selectedComponent && (
+						<motion.div
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							exit={{ opacity: 0 }}
+							className='fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4'
+							onClick={() => setSelectedComponent(null)}>
+							<motion.div
+								initial={{ scale: 0.9, opacity: 0 }}
+								animate={{ scale: 1, opacity: 1 }}
+								exit={{ scale: 0.9, opacity: 0 }}
+								transition={{ type: 'spring', damping: 25 }}
+								className='relative bg-card border rounded-[40px] max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-lg'
+								onClick={e => e.stopPropagation()}>
+								{(() => {
+									const component = components.find(c => c.id === selectedComponent)
+									if (!component) return null
+
+									return (
+										<>
+											{/* Header */}
+											<div className='sticky top-0 z-10 mb-6 border-b border-gray-200/50 bg-white/80 backdrop-blur p-6'>
+												<div className='flex items-start justify-between'>
+													<div className='flex items-start gap-4'>
+														<span className='text-4xl'>{component.icon}</span>
+														<div>
+															<h2 className='font-averia text-3xl font-bold text-primary'>{component.name}</h2>
+															<p className='text-secondary mt-1'>{component.description}</p>
+														</div>
+													</div>
+													<button
+														onClick={() => setSelectedComponent(null)}
+														className='text-secondary hover:text-primary rounded-lg p-2 transition-colors'>
+														<X size={24} />
+													</button>
+												</div>
+											</div>
+
+											{/* Content */}
+											<div className='p-6 pt-0'>
+												{/* Props Table */}
+												<div className='mb-8'>
+													<h3 className='text-primary mb-4 flex items-center gap-2 font-bold'>
+														Props
+														<span className='text-secondary text-sm font-normal'>（{component.props.length} 个）</span>
+													</h3>
+													<div className='overflow-hidden rounded-xl border'>
+														<table className='w-full text-left text-sm'>
+															<thead className='bg-brand-secondary/10'>
+																<tr>
+																	<th className='px-4 py-3 font-semibold text-primary'>属性名</th>
+																	<th className='px-4 py-3 font-semibold text-primary'>类型</th>
+																	<th className='px-4 py-3 font-semibold text-primary'>默认值</th>
+																	<th className='px-4 py-3 font-semibold text-primary'>说明</th>
+																</tr>
+															</thead>
+															<tbody>
+																{component.props.map((prop, index) => (
+																	<tr key={index} className='border-t border-gray-200'>
+																		<td className='px-4 py-3 font-mono text-brand'>{prop.name}</td>
+																		<td className='px-4 py-3 font-mono text-secondary'>{prop.type}</td>
+																		<td className='px-4 py-3 font-mono text-secondary'>{prop.default}</td>
+																		<td className='px-4 py-3 text-secondary'>{prop.description}</td>
+																	</tr>
+																))}
+															</tbody>
+														</table>
+													</div>
+												</div>
+
+												{/* Usage Guide */}
+												<div className='rounded-xl bg-brand/5 border border-brand/20 p-6'>
+													<h3 className='text-primary mb-3 flex items-center gap-2 font-bold'>
+														<Download size={20} />
+														使用方法
+													</h3>
+													<div className='space-y-3 text-sm text-secondary'>
+														<p>1. 复制组件文件：<code className='bg-brand/10 text-brand mx-1 rounded px-1.5 py-0.5'>src/components/ui/{component.id}.tsx</code></p>
+														<p>2. 在你的项目中引入：</p>
+														<code className='block bg-brand/10 text-brand rounded-lg p-3 text-xs'>import { '{' + component.name + '}' } from '@/components/ui/{component.id}'</code>
+														<p className='mt-3'>3. 开始使用！</p>
+													</div>
+												</div>
+											</div>
+										</>
+									)
+								})()}
+							</motion.div>
+						</motion.div>
+					)}
+				</AnimatePresence>
+			</div>
+		</div>
+	)
+}

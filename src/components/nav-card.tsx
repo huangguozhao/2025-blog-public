@@ -54,6 +54,12 @@ const list = [
 		iconActive: WebsiteFilledSVG,
 		label: '优秀博客',
 		href: '/bloggers'
+	},
+	{
+		icon: WebsiteOutlineSVG,
+		iconActive: WebsiteFilledSVG,
+		label: '组件库',
+		href: '/components-demo'
 	}
 ]
 
