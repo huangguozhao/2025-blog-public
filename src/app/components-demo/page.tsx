@@ -236,10 +236,84 @@ export default function ComponentsDemoPage() {
 			</div>
 		),
 		avatar: (
-			<div className='flex items-center gap-3 justify-center'>
-				<Avatar src='/images/avatar.png' alt='User' size='lg' />
-				<Avatar src='/images/avatar.png' alt='User' size='md' />
-				<Avatar src='/images/avatar.png' alt='User' size='sm' />
+			<div className='w-full max-w-[340px] space-y-4 p-3 overflow-auto max-h-[280px]'>
+				{/* 样式变体展示 */}
+				<div className='space-y-3'>
+					<div className='text-xs font-medium text-secondary mb-2'>👤 Avatar 样式变体</div>
+					
+					{/* 第一行：基础变体 */}
+					<div className='flex items-center gap-3 justify-center'>
+						<Avatar src='/images/avatar.png' alt='Default' variant='default' size='md' />
+						<Avatar src='/images/avatar.png' alt='Square' variant='square' size='md' />
+						<Avatar src='/images/avatar.png' alt='Rounded' variant='rounded' size='md' />
+						<Avatar src='/images/avatar.png' alt='Circle' variant='circle' size='md' />
+					</div>
+					
+					{/* 第二行：特效变体 */}
+					<div className='flex items-center gap-3 justify-center'>
+						<Avatar src='/images/avatar.png' alt='Bordered' variant='bordered' size='md' />
+						<Avatar src='/images/avatar.png' alt='Shadow' variant='shadow' size='md' />
+						<Avatar src='/images/avatar.png' alt='Glass' variant='glass' size='md' />
+					</div>
+					
+					{/* 第三行：高级变体 */}
+					<div className='flex items-center gap-3 justify-center'>
+						<Avatar src='/images/avatar.png' alt='Gradient' variant='gradient' size='md' />
+						<Avatar src='/images/avatar.png' alt='Neon' variant='neon' size='md' />
+					</div>
+				</div>
+				
+				{/* 尺寸展示 */}
+				<div className='space-y-3 pt-3 border-t border-gray-100'>
+					<div className='text-xs font-medium text-secondary mb-2'>📏 尺寸对比</div>
+					<div className='flex items-center gap-2 justify-center'>
+						<Avatar src='/images/avatar.png' alt='XS' size='xs' />
+						<Avatar src='/images/avatar.png' alt='SM' size='sm' />
+						<Avatar src='/images/avatar.png' alt='MD' size='md' />
+						<Avatar src='/images/avatar.png' alt='LG' size='lg' />
+						<Avatar src='/images/avatar.png' alt='XL' size='xl' />
+						<Avatar src='/images/avatar.png' alt='2XL' size='2xl' />
+					</div>
+				</div>
+				
+				{/* 状态指示器 */}
+				<div className='space-y-3 pt-3 border-t border-gray-100'>
+					<div className='text-xs font-medium text-secondary mb-2'>🟢 状态指示</div>
+					<div className='flex items-center gap-3 justify-center'>
+						<Avatar src='/images/avatar.png' alt='Online' size='md' status='online' />
+						<Avatar src='/images/avatar.png' alt='Offline' size='md' status='offline' />
+						<Avatar src='/images/avatar.png' alt='Busy' size='md' status='busy' />
+						<Avatar src='/images/avatar.png' alt='Away' size='md' status='away' />
+					</div>
+				</div>
+				
+				{/* 特殊功能展示 */}
+				<div className='space-y-3 pt-3 border-t border-gray-100'>
+					<div className='text-xs font-medium text-secondary mb-2'>✨ 特殊功能</div>
+					
+					{/* 占位符和回退 */}
+					<div className='space-y-2'>
+						<div className='text-[11px] text-gray-500'>占位符和回退</div>
+						<div className='flex items-center gap-3 justify-center'>
+							<Avatar placeholder alt='Placeholder' size='md' fallback='P' />
+							<Avatar alt='Error Image' src='https://invalid-url.com/avatar.jpg' size='md' fallback='E' />
+						</div>
+					</div>
+					
+					{/* 可点击头像 */}
+					<div className='space-y-2'>
+						<div className='text-[11px] text-gray-500'>可点击头像</div>
+						<div className='flex items-center gap-3 justify-center'>
+							<Avatar 
+								src='/images/avatar.png' 
+								alt='Clickable' 
+								size='md' 
+								onClick={() => console.log('Avatar clicked!')}
+								className='cursor-pointer hover:scale-105 transition-transform' 
+							/>
+						</div>
+					</div>
+				</div>
 			</div>
 		),
 		switch: (
@@ -342,12 +416,19 @@ export default function ComponentsDemoPage() {
 			id: 'avatar',
 			name: 'Avatar',
 			category: 'basic',
-			description: '头像组件，支持多种尺寸和交互动画',
+			description: '高级头像组件，支持8种样式变体、6种尺寸、状态指示、占位符和交互',
 			icon: '👤',
 			props: [
-				{ name: 'src', type: 'string', default: 'required', description: '图片地址' },
-				{ name: 'alt', type: 'string', default: 'required', description: '替代文本' },
-				{ name: 'size', type: "'sm' | 'md' | 'lg' | 'xl'", default: "'md'", description: '头像尺寸' }
+				{ name: 'variant', type: "'default' | 'square' | 'rounded' | 'circle' | 'bordered' | 'shadow' | 'gradient' | 'neon' | 'glass'", default: "'default'", description: '头像样式变体' },
+				{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'", default: "'md'", description: '头像尺寸' },
+				{ name: 'status', type: "'online' | 'offline' | 'busy' | 'away'", default: "-", description: '在线状态' },
+				{ name: 'fallback', type: 'string', default: "'U'", description: '回退字符' },
+				{ name: 'bordered', type: 'boolean', default: 'false', description: '是否显示边框' },
+				{ name: 'shadow', type: 'boolean', default: 'false', description: '是否显示阴影' },
+				{ name: 'placeholder', type: 'boolean', default: 'false', description: '是否显示占位符' },
+				{ name: 'src', type: 'string', default: '-', description: '图片地址' },
+				{ name: 'alt', type: 'string', default: '-', description: '替代文本' },
+				{ name: 'onClick', type: '() => void', default: '-', description: '点击回调' }
 			]
 		},
 		{
@@ -484,11 +565,11 @@ export default function ComponentsDemoPage() {
 								className='flex flex-col group'>
 								{/* Artwork Frame */}
 								<div className='relative bg-card border rounded-[40px] mb-3 overflow-hidden bg-gradient-to-br from-white to-gray-50 shadow-sm group-hover:shadow-md transition-shadow' style={{ 
-									minHeight: component.id === 'button' ? '320px' : component.id === 'input' ? '320px' : component.id === 'card' ? '320px' : component.id === 'badge' ? '320px' : '260px', 
-									maxHeight: component.id === 'button' ? 'none' : component.id === 'input' ? '320px' : component.id === 'card' ? '320px' : component.id === 'badge' ? '320px' : '260px' 
+									minHeight: component.id === 'button' ? '320px' : component.id === 'input' ? '320px' : component.id === 'card' ? '320px' : component.id === 'badge' ? '320px' : component.id === 'avatar' ? '320px' : '260px', 
+									maxHeight: component.id === 'button' ? 'none' : component.id === 'input' ? '320px' : component.id === 'card' ? '320px' : component.id === 'badge' ? '320px' : component.id === 'avatar' ? '320px' : '260px' 
 								}}>
 									{/* Component Display Area */}
-									<div className='flex items-start justify-center p-5 overflow-auto' style={{ height: component.id === 'button' ? 'auto' : component.id === 'input' ? '320px' : component.id === 'card' ? '320px' : component.id === 'badge' ? '320px' : '260px' }}>
+									<div className='flex items-start justify-center p-5 overflow-auto' style={{ height: component.id === 'button' ? 'auto' : component.id === 'input' ? '320px' : component.id === 'card' ? '320px' : component.id === 'badge' ? '320px' : component.id === 'avatar' ? '320px' : '260px' }}>
 										<div className='w-full flex items-start justify-center'>
 											{componentPreviews[component.id]}
 										</div>
