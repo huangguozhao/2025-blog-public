@@ -51,21 +51,72 @@ export default function ComponentsDemoPage() {
 			</div>
 		),
 		card: (
-			<Card clickable className='w-full max-w-[200px]'>
-				<div className='space-y-2 p-3'>
-					<div className='flex items-center gap-2'>
-						<Avatar src='/images/avatar.png' alt='User' size='sm' />
-						<div>
-							<h4 className='font-bold text-primary text-sm'>用户名</h4>
-							<p className='text-secondary text-[10px]'>组件演示</p>
-						</div>
+			<div className='w-full max-w-[340px] space-y-3 overflow-auto max-h-[280px]'>
+				{/* 样式变体展示 */}
+				<div className='space-y-3'>
+					<div className='text-xs font-medium text-secondary mb-2'>📦 Card 样式变体</div>
+					
+					{/* 第一行卡片 */}
+					<div className='grid grid-cols-2 gap-2'>
+						<Card variant='default' size='sm' className='h-24 flex items-center justify-center'>
+							<span className='text-xs font-medium'>Default</span>
+						</Card>
+						<Card variant='elevated' size='sm' className='h-24 flex items-center justify-center'>
+							<span className='text-xs font-medium'>Elevated</span>
+						</Card>
 					</div>
-					<div className='flex items-center justify-between'>
-						<Badge variant='primary' size='sm'>Pro</Badge>
-						<span className='text-secondary text-[10px]'>2小时前</span>
+					
+					{/* 第二行卡片 */}
+					<div className='grid grid-cols-2 gap-2'>
+						<Card variant='glass' size='sm' className='h-24 flex items-center justify-center'>
+							<span className='text-xs font-medium'>Glass</span>
+						</Card>
+						<Card variant='gradient' size='sm' className='h-24 flex items-center justify-center'>
+							<span className='text-xs font-medium'>Gradient</span>
+						</Card>
+					</div>
+					
+					{/* 第三行卡片 */}
+					<div className='grid grid-cols-2 gap-2'>
+						<Card variant='minimal' size='sm' className='h-24 flex items-center justify-center'>
+							<span className='text-xs font-medium'>Minimal</span>
+						</Card>
+						<Card variant='bordered' size='sm' className='h-24 flex items-center justify-center'>
+							<span className='text-xs font-medium'>Bordered</span>
+						</Card>
+					</div>
+					
+					{/* 第四行卡片 */}
+					<div className='grid grid-cols-2 gap-2'>
+						<Card variant='neon' size='sm' className='h-24 flex items-center justify-center text-cyan-400'>
+							<span className='text-xs font-medium'>Neon</span>
+						</Card>
+						<Card variant='outlined' size='sm' className='h-24 flex items-center justify-center'>
+							<span className='text-xs font-medium'>Outlined</span>
+						</Card>
 					</div>
 				</div>
-			</Card>
+				
+				{/* 实际内容示例 */}
+				<div className='space-y-2 pt-2 border-t border-gray-100'>
+					<div className='text-xs font-medium text-secondary mb-2'>🎯 实际应用</div>
+					<Card variant='elevated' clickable className='w-full'>
+						<div className='space-y-2'>
+							<div className='flex items-center gap-2'>
+								<Avatar src='/images/avatar.png' alt='User' size='sm' />
+								<div>
+									<h4 className='font-bold text-primary text-sm'>张三</h4>
+									<p className='text-secondary text-[10px]'>前端工程师</p>
+								</div>
+							</div>
+							<div className='flex items-center justify-between'>
+								<Badge variant='primary' size='sm'>Pro</Badge>
+								<span className='text-secondary text-[10px]'>2小时前</span>
+							</div>
+						</div>
+					</Card>
+				</div>
+			</div>
 		),
 		input: (
 			<div className='w-full max-w-[320px] space-y-4 p-3 overflow-auto max-h-[280px]'>
@@ -172,13 +223,15 @@ export default function ComponentsDemoPage() {
 			id: 'card',
 			name: 'Card',
 			category: 'layout',
-			description: '玻璃态卡片组件，支持动画、交互和多种样式',
+			description: '高级卡片组件，支持9种样式变体、3种尺寸、动画和交互效果',
 			icon: '📦',
 			props: [
+				{ name: 'variant', type: "'default' | 'elevated' | 'glass' | 'gradient' | 'minimal' | 'bordered' | 'neon' | 'outlined' | 'solid'", default: "'default'", description: '卡片样式变体' },
+				{ name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: '卡片尺寸' },
 				{ name: 'children', type: 'React.ReactNode', default: '-', description: '卡片内容' },
-				{ name: 'className', type: 'string', default: '-', description: '自定义类名' },
 				{ name: 'clickable', type: 'boolean', default: 'false', description: '是否可点击' },
-				{ name: 'noPadding', type: 'boolean', default: 'false', description: '是否无内边距' }
+				{ name: 'noPadding', type: 'boolean', default: 'false', description: '是否无内边距' },
+				{ name: 'hoverable', type: 'boolean', default: 'true', description: '是否有悬停效果' }
 			]
 		},
 		{
@@ -355,11 +408,11 @@ export default function ComponentsDemoPage() {
 								className='flex flex-col group'>
 								{/* Artwork Frame */}
 								<div className='relative bg-card border rounded-[40px] mb-3 overflow-hidden bg-gradient-to-br from-white to-gray-50 shadow-sm group-hover:shadow-md transition-shadow' style={{ 
-									minHeight: component.id === 'button' ? '320px' : component.id === 'input' ? '320px' : '260px', 
-									maxHeight: component.id === 'button' ? 'none' : component.id === 'input' ? '320px' : '260px' 
+									minHeight: component.id === 'button' ? '320px' : component.id === 'input' ? '320px' : component.id === 'card' ? '320px' : '260px', 
+									maxHeight: component.id === 'button' ? 'none' : component.id === 'input' ? '320px' : component.id === 'card' ? '320px' : '260px' 
 								}}>
 									{/* Component Display Area */}
-									<div className='flex items-start justify-center p-5 overflow-auto' style={{ height: component.id === 'button' ? 'auto' : component.id === 'input' ? '320px' : '260px' }}>
+									<div className='flex items-start justify-center p-5 overflow-auto' style={{ height: component.id === 'button' ? 'auto' : component.id === 'input' ? '320px' : component.id === 'card' ? '320px' : '260px' }}>
 										<div className='w-full flex items-start justify-center'>
 											{componentPreviews[component.id]}
 										</div>
