@@ -153,13 +153,86 @@ export default function ComponentsDemoPage() {
 			</div>
 		),
 		badge: (
-			<div className='flex flex-wrap gap-1.5 justify-center'>
-				<Badge size='sm'>默认</Badge>
-				<Badge variant='primary' size='sm'>主要</Badge>
-				<Badge variant='secondary' size='sm'>次要</Badge>
-				<Badge variant='success' size='sm'>成功</Badge>
-				<Badge variant='warning' size='sm'>警告</Badge>
-				<Badge variant='danger' size='sm'>危险</Badge>
+			<div className='w-full max-w-[340px] space-y-4 p-3 overflow-auto max-h-[280px]'>
+				{/* 样式变体展示 */}
+				<div className='space-y-3'>
+					<div className='text-xs font-medium text-secondary mb-2'>🏷️ Badge 样式变体</div>
+					
+					{/* 第一行：基础变体 */}
+					<div className='flex flex-wrap gap-1.5 justify-center'>
+						<Badge variant='default' size='sm'>默认</Badge>
+						<Badge variant='primary' size='sm'>主要</Badge>
+						<Badge variant='secondary' size='sm'>次要</Badge>
+						<Badge variant='info' size='sm'>信息</Badge>
+					</div>
+					
+					{/* 第二行：状态变体 */}
+					<div className='flex flex-wrap gap-1.5 justify-center'>
+						<Badge variant='success' size='sm'>成功</Badge>
+						<Badge variant='warning' size='sm'>警告</Badge>
+						<Badge variant='danger' size='sm'>危险</Badge>
+						<Badge variant='ghost' size='sm'>幽灵</Badge>
+					</div>
+					
+					{/* 第三行：特殊效果 */}
+					<div className='flex flex-wrap gap-1.5 justify-center'>
+						<Badge variant='gradient' size='sm'>渐变</Badge>
+						<Badge variant='neon' size='sm'>霓虹</Badge>
+						<Badge variant='outlined' size='sm'>轮廓</Badge>
+					</div>
+				</div>
+				
+				{/* 尺寸和形状展示 */}
+				<div className='space-y-3 pt-3 border-t border-gray-100'>
+					<div className='text-xs font-medium text-secondary mb-2'>📏 尺寸和形状</div>
+					
+					{/* 尺寸对比 */}
+					<div className='space-y-2'>
+						<div className='text-[11px] text-gray-500'>尺寸对比</div>
+						<div className='flex items-center gap-2'>
+							<Badge variant='primary' size='xs'>超小</Badge>
+							<Badge variant='primary' size='sm'>小号</Badge>
+							<Badge variant='primary' size='md'>中号</Badge>
+							<Badge variant='primary' size='lg'>大号</Badge>
+						</div>
+					</div>
+					
+					{/* 形状对比 */}
+					<div className='space-y-2'>
+						<div className='text-[11px] text-gray-500'>形状对比</div>
+						<div className='flex items-center gap-2'>
+							<Badge variant='primary' size='sm' shape='square'>方形</Badge>
+							<Badge variant='primary' size='sm' shape='rounded'>圆角</Badge>
+							<Badge variant='primary' size='sm' shape='pill'>胶囊</Badge>
+						</div>
+					</div>
+				</div>
+				
+				{/* 特殊功能展示 */}
+				<div className='space-y-3 pt-3 border-t border-gray-100'>
+					<div className='text-xs font-medium text-secondary mb-2'>✨ 特殊功能</div>
+					
+					{/* 带状态点的徽章 */}
+					<div className='space-y-2'>
+						<div className='text-[11px] text-gray-500'>状态指示点</div>
+						<div className='flex items-center gap-2'>
+							<Badge variant='success' size='sm' dot>新消息</Badge>
+							<Badge variant='warning' size='sm' dot>待处理</Badge>
+							<Badge variant='danger' size='sm' dot>紧急</Badge>
+							<Badge variant='info' size='sm' dot>通知</Badge>
+						</div>
+					</div>
+					
+					{/* 动画徽章 */}
+					<div className='space-y-2'>
+						<div className='text-[11px] text-gray-500'>动画效果</div>
+						<div className='flex items-center gap-2'>
+							<Badge variant='gradient' size='sm' animated>动画</Badge>
+							<Badge variant='neon' size='sm' animated>霓虹</Badge>
+							<Badge variant='success' size='sm' dot animated>状态</Badge>
+						</div>
+					</div>
+				</div>
 			</div>
 		),
 		avatar: (
@@ -255,11 +328,14 @@ export default function ComponentsDemoPage() {
 			id: 'badge',
 			name: 'Badge',
 			category: 'basic',
-			description: '标签组件，支持多种颜色和尺寸变体',
+			description: '高级标签组件，支持10种样式变体、4种尺寸、3种形状、动画和状态指示点',
 			icon: '🏷️',
 			props: [
-				{ name: 'variant', type: "'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger'", default: "'default'", description: '标签颜色' },
-				{ name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: '标签尺寸' }
+				{ name: 'variant', type: "'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info' | 'gradient' | 'neon' | 'outlined' | 'ghost'", default: "'default'", description: '标签样式变体' },
+				{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: '标签尺寸' },
+				{ name: 'shape', type: "'rounded' | 'pill' | 'square'", default: "'pill'", description: '标签形状' },
+				{ name: 'dot', type: 'boolean', default: 'false', description: '是否显示状态指示点' },
+				{ name: 'animated', type: 'boolean', default: 'false', description: '是否启用动画效果' }
 			]
 		},
 		{
@@ -408,11 +484,11 @@ export default function ComponentsDemoPage() {
 								className='flex flex-col group'>
 								{/* Artwork Frame */}
 								<div className='relative bg-card border rounded-[40px] mb-3 overflow-hidden bg-gradient-to-br from-white to-gray-50 shadow-sm group-hover:shadow-md transition-shadow' style={{ 
-									minHeight: component.id === 'button' ? '320px' : component.id === 'input' ? '320px' : component.id === 'card' ? '320px' : '260px', 
-									maxHeight: component.id === 'button' ? 'none' : component.id === 'input' ? '320px' : component.id === 'card' ? '320px' : '260px' 
+									minHeight: component.id === 'button' ? '320px' : component.id === 'input' ? '320px' : component.id === 'card' ? '320px' : component.id === 'badge' ? '320px' : '260px', 
+									maxHeight: component.id === 'button' ? 'none' : component.id === 'input' ? '320px' : component.id === 'card' ? '320px' : component.id === 'badge' ? '320px' : '260px' 
 								}}>
 									{/* Component Display Area */}
-									<div className='flex items-start justify-center p-5 overflow-auto' style={{ height: component.id === 'button' ? 'auto' : component.id === 'input' ? '320px' : component.id === 'card' ? '320px' : '260px' }}>
+									<div className='flex items-start justify-center p-5 overflow-auto' style={{ height: component.id === 'button' ? 'auto' : component.id === 'input' ? '320px' : component.id === 'card' ? '320px' : component.id === 'badge' ? '320px' : '260px' }}>
 										<div className='w-full flex items-start justify-center'>
 											{componentPreviews[component.id]}
 										</div>
