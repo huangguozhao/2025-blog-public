@@ -68,10 +68,36 @@ export default function ComponentsDemoPage() {
 			</Card>
 		),
 		input: (
-			<div className='w-full max-w-[280px] space-y-4 p-2'>
+			<div className='w-full max-w-[320px] space-y-4 p-3 overflow-auto max-h-[280px]'>
+				{/* 样式变体展示 */}
 				<div className='space-y-3'>
-					<Input label='用户名' placeholder='请输入...' value={inputValue} onChange={e => setInputValue(e.target.value)} />
-					<Input placeholder='搜索...' icon={<Search size={16} />} />
+					<div className='text-xs font-medium text-secondary mb-2'>样式变体</div>
+					<Input variant='default' label='默认' placeholder='Default input...' />
+					<Input variant='filled' label='填充' placeholder='Filled input...' />
+					<Input variant='outlined' label='轮廓' placeholder='Outlined input...' />
+					<Input variant='underlined' label='下划线' placeholder='Underlined input...' />
+					<Input variant='ghost' label='幽灵' placeholder='Ghost input...' />
+					<Input variant='glass' label='玻璃态' placeholder='Glass input...' />
+					<Input variant='success' label='成功' placeholder='Success state...' />
+					<Input variant='warning' label='警告' placeholder='Warning state...' />
+					<Input variant='error' label='错误' placeholder='Error state...' error='This field is required' />
+				</div>
+				
+				{/* 尺寸展示 */}
+				<div className='space-y-2 pt-2 border-t border-gray-100'>
+					<div className='text-xs font-medium text-secondary mb-2'>尺寸大小</div>
+					<div className='flex items-center gap-2'>
+						<Input size='sm' placeholder='Small' className='flex-1' />
+						<Input size='md' placeholder='Medium' className='flex-1' />
+						<Input size='lg' placeholder='Large' className='flex-1' />
+					</div>
+				</div>
+
+				{/* 图标展示 */}
+				<div className='space-y-2 pt-2 border-t border-gray-100'>
+					<div className='text-xs font-medium text-secondary mb-2'>图标输入框</div>
+					<Input placeholder='搜索...' leftIcon={<Search size={16} />} />
+					<Input placeholder='邮箱...' leftIcon={<Search size={16} />} rightIcon={<Search size={16} />} />
 				</div>
 			</div>
 		),
@@ -159,9 +185,11 @@ export default function ComponentsDemoPage() {
 			id: 'input',
 			name: 'Input',
 			category: 'form',
-			description: '输入框组件，支持图标、标签和验证',
+			description: '增强输入框组件，支持9种样式变体、3种尺寸、图标和验证',
 			icon: '⌨️',
 			props: [
+				{ name: 'variant', type: "'default' | 'filled' | 'outlined' | 'underlined' | 'ghost' | 'glass' | 'success' | 'warning' | 'error'", default: "'default'", description: '输入框样式变体' },
+				{ name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: '输入框尺寸' },
 				{ name: 'label', type: 'string', default: '-', description: '标签文本' },
 				{ name: 'placeholder', type: 'string', default: '-', description: '占位文本' },
 				{ name: 'icon', type: 'ReactNode', default: '-', description: '图标（左侧）' },
@@ -327,12 +355,12 @@ export default function ComponentsDemoPage() {
 								className='flex flex-col group'>
 								{/* Artwork Frame */}
 								<div className='relative bg-card border rounded-[40px] mb-3 overflow-hidden bg-gradient-to-br from-white to-gray-50 shadow-sm group-hover:shadow-md transition-shadow' style={{ 
-									minHeight: component.id === 'button' ? '320px' : component.id === 'input' ? '300px' : '260px', 
-									maxHeight: component.id === 'button' ? 'none' : component.id === 'input' ? '300px' : '260px' 
+									minHeight: component.id === 'button' ? '320px' : component.id === 'input' ? '320px' : '260px', 
+									maxHeight: component.id === 'button' ? 'none' : component.id === 'input' ? '320px' : '260px' 
 								}}>
 									{/* Component Display Area */}
-									<div className='flex items-start justify-center p-5 overflow-auto' style={{ height: component.id === 'button' ? 'auto' : component.id === 'input' ? '300px' : '260px' }}>
-										<div className='w-full flex items-center justify-center'>
+									<div className='flex items-start justify-center p-5 overflow-auto' style={{ height: component.id === 'button' ? 'auto' : component.id === 'input' ? '320px' : '260px' }}>
+										<div className='w-full flex items-start justify-center'>
 											{componentPreviews[component.id]}
 										</div>
 									</div>
