@@ -68,9 +68,11 @@ export default function ComponentsDemoPage() {
 			</Card>
 		),
 		input: (
-			<div className='w-full max-w-[250px] space-y-2'>
-				<Input label='用户名' placeholder='请输入...' value={inputValue} onChange={e => setInputValue(e.target.value)} />
-				<Input placeholder='搜索...' icon={<Search size={16} />} />
+			<div className='w-full max-w-[280px] space-y-4 p-2'>
+				<div className='space-y-3'>
+					<Input label='用户名' placeholder='请输入...' value={inputValue} onChange={e => setInputValue(e.target.value)} />
+					<Input placeholder='搜索...' icon={<Search size={16} />} />
+				</div>
 			</div>
 		),
 		badge: (
@@ -324,9 +326,12 @@ export default function ComponentsDemoPage() {
 								transition={{ delay: index * 0.04, duration: 0.35 }}
 								className='flex flex-col group'>
 								{/* Artwork Frame */}
-								<div className='relative bg-card border rounded-[40px] mb-3 overflow-hidden bg-gradient-to-br from-white to-gray-50 shadow-sm group-hover:shadow-md transition-shadow' style={{ minHeight: component.id === 'button' ? '320px' : '260px', maxHeight: component.id === 'button' ? 'none' : '260px' }}>
+								<div className='relative bg-card border rounded-[40px] mb-3 overflow-hidden bg-gradient-to-br from-white to-gray-50 shadow-sm group-hover:shadow-md transition-shadow' style={{ 
+									minHeight: component.id === 'button' ? '320px' : component.id === 'input' ? '300px' : '260px', 
+									maxHeight: component.id === 'button' ? 'none' : component.id === 'input' ? '300px' : '260px' 
+								}}>
 									{/* Component Display Area */}
-									<div className='flex items-center justify-center p-5' style={{ height: component.id === 'button' ? 'auto' : '260px' }}>
+									<div className='flex items-start justify-center p-5 overflow-auto' style={{ height: component.id === 'button' ? 'auto' : component.id === 'input' ? '300px' : '260px' }}>
 										<div className='w-full flex items-center justify-center'>
 											{componentPreviews[component.id]}
 										</div>
