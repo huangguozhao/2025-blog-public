@@ -317,10 +317,134 @@ export default function ComponentsDemoPage() {
 			</div>
 		),
 		switch: (
-			<div className='space-y-3'>
-				<Switch checked={switchChecked} onChange={setSwitchChecked} label='通知' size='sm' />
-				<Switch checked={!switchChecked} onChange={val => setSwitchChecked(!val)} label='夜间模式' size='sm' />
-				<Switch checked={true} label='自动保存' disabled size='sm' />
+			<div className='w-full max-w-[380px] space-y-4 p-3 overflow-auto max-h-[280px]'>
+				{/* 样式变体展示 */}
+				<div className='space-y-3'>
+					<div className='text-xs font-medium text-secondary mb-2'>🎨 Switch 样式变体</div>
+					
+					{/* 第一行：基础变体 */}
+					<div className='flex items-center gap-4 justify-center'>
+						<Switch 
+							checked={switchChecked} 
+							onChange={setSwitchChecked} 
+							label='Default' 
+							variant='default' 
+							size='md' 
+						/>
+						<Switch 
+							checked={true} 
+							label='Gradient' 
+							variant='gradient' 
+							size='md' 
+						/>
+					</div>
+					
+					{/* 第二行：特效变体 */}
+					<div className='flex items-center gap-4 justify-center'>
+						<Switch 
+							checked={true} 
+							label='Glass' 
+							variant='glass' 
+							size='md' 
+						/>
+						<Switch 
+							checked={true} 
+							label='Neon' 
+							variant='neon' 
+							size='md' 
+						/>
+					</div>
+					
+					{/* 第三行：其他变体 */}
+					<div className='flex items-center gap-4 justify-center'>
+						<Switch 
+							checked={true} 
+							label='Minimal' 
+							variant='minimal' 
+							size='md' 
+						/>
+						<Switch 
+							checked={true} 
+							label='Solid' 
+							variant='solid' 
+							size='md' 
+						/>
+					</div>
+				</div>
+				
+				{/* 尺寸展示 */}
+				<div className='space-y-3 pt-3 border-t border-gray-100'>
+					<div className='text-xs font-medium text-secondary mb-2'>📏 尺寸对比</div>
+					<div className='flex items-center gap-3 justify-center'>
+						<Switch checked={true} label='XS' size='xs' />
+						<Switch checked={true} label='SM' size='sm' />
+						<Switch checked={true} label='MD' size='md' />
+						<Switch checked={true} label='LG' size='lg' />
+						<Switch checked={true} label='XL' size='xl' />
+					</div>
+				</div>
+				
+				{/* 标签位置 */}
+				<div className='space-y-3 pt-3 border-t border-gray-100'>
+					<div className='text-xs font-medium text-secondary mb-2'>📍 标签位置</div>
+					<div className='grid grid-cols-2 gap-3 justify-center'>
+						<Switch checked={true} label='左侧' labelPosition='left' size='sm' />
+						<Switch checked={true} label='右侧' labelPosition='right' size='sm' />
+						<Switch checked={true} label='上方' labelPosition='top' size='sm' description='顶部标签' />
+						<Switch checked={true} label='下方' labelPosition='bottom' size='sm' description='底部标签' />
+					</div>
+				</div>
+				
+				{/* 特殊状态 */}
+				<div className='space-y-3 pt-3 border-t border-gray-100'>
+					<div className='text-xs font-medium text-secondary mb-2'>🔧 特殊状态</div>
+					
+					{/* 禁用状态 */}
+					<div className='space-y-2'>
+						<div className='text-[11px] text-gray-500'>禁用状态</div>
+						<div className='flex items-center gap-3 justify-center'>
+							<Switch checked={false} label='未选中禁用' disabled size='sm' />
+							<Switch checked={true} label='已选中禁用' disabled size='sm' />
+						</div>
+					</div>
+					
+					{/* 加载状态 */}
+					<div className='space-y-2'>
+						<div className='text-[11px] text-gray-500'>加载状态</div>
+						<div className='flex items-center gap-3 justify-center'>
+							<Switch checked={true} label='加载中' loading size='sm' />
+							<Switch checked={false} label='加载中' loading variant='gradient' size='sm' />
+						</div>
+					</div>
+					
+					{/* 带图标 */}
+					<div className='space-y-2'>
+						<div className='text-[11px] text-gray-500'>带图标</div>
+						<div className='flex items-center gap-3 justify-center'>
+							<Switch 
+								checked={true} 
+								label='通知' 
+								size='sm'
+								icon={
+									<svg className='w-3 h-3' fill='currentColor' viewBox='0 0 20 20'>
+										<path d='M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z' />
+									</svg>
+								}
+							/>
+							<Switch 
+								checked={true} 
+								label='设置' 
+								variant='neon'
+								size='sm'
+								icon={
+									<svg className='w-3 h-3' fill='currentColor' viewBox='0 0 20 20'>
+										<path fillRule='evenodd' d='M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z' clipRule='evenodd' />
+									</svg>
+								}
+							/>
+						</div>
+					</div>
+				</div>
 			</div>
 		),
 		tooltip: (
@@ -435,14 +559,19 @@ export default function ComponentsDemoPage() {
 			id: 'switch',
 			name: 'Switch',
 			category: 'form',
-			description: '开关组件，支持多种尺寸、状态和动画',
+			description: '高级开关组件，支持6种样式变体、5种尺寸、标签位置、图标和加载状态',
 			icon: '🔀',
 			props: [
 				{ name: 'checked', type: 'boolean', default: 'false', description: '是否选中' },
 				{ name: 'onChange', type: '(checked: boolean) => void', default: '-', description: '变化回调' },
 				{ name: 'disabled', type: 'boolean', default: 'false', description: '是否禁用' },
-				{ name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: '开关尺寸' },
-				{ name: 'label', type: 'string', default: '-', description: '标签文本' }
+				{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg' | 'xl'", default: "'md'", description: '开关尺寸' },
+				{ name: 'variant', type: "'default' | 'gradient' | 'glass' | 'neon' | 'minimal' | 'solid'", default: "'default'", description: '开关样式变体' },
+				{ name: 'label', type: 'string', default: '-', description: '标签文本' },
+				{ name: 'labelPosition', type: "'left' | 'right' | 'top' | 'bottom'", default: "'right'", description: '标签位置' },
+				{ name: 'icon', type: 'React.ReactNode', default: '-', description: '开关图标' },
+				{ name: 'loading', type: 'boolean', default: 'false', description: '是否显示加载状态' },
+				{ name: 'description', type: 'string', default: '-', description: '描述文本' }
 			]
 		},
 		{
