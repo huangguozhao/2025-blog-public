@@ -448,16 +448,150 @@ export default function ComponentsDemoPage() {
 			</div>
 		),
 		tooltip: (
-			<div className='flex flex-wrap gap-2 justify-center'>
-				<Tooltip content='顶部提示' position='top'>
-					<Button variant='outline' size='sm'>顶部</Button>
-				</Tooltip>
-				<Tooltip content='底部提示' position='bottom'>
-					<Button variant='outline' size='sm'>底部</Button>
-				</Tooltip>
-				<Tooltip content='左侧提示' position='left'>
-					<Button variant='outline' size='sm'>左侧</Button>
-				</Tooltip>
+			<div className='w-full max-w-[420px] space-y-4 p-3 overflow-auto max-h-[280px]'>
+				{/* 样式变体展示 */}
+				<div className='space-y-3'>
+					<div className='text-xs font-medium text-secondary mb-2'>💡 Tooltip 样式变体</div>
+					
+					{/* 第一行：基础变体 */}
+					<div className='flex items-center gap-3 justify-center'>
+						<Tooltip content='Default 样式' variant='default'>
+							<Button variant='outline' size='sm'>Default</Button>
+						</Tooltip>
+						<Tooltip content='Dark 深色风格' variant='dark'>
+							<Button variant='outline' size='sm'>Dark</Button>
+						</Tooltip>
+						<Tooltip content='Glass 玻璃态效果' variant='glass'>
+							<Button variant='outline' size='sm'>Glass</Button>
+						</Tooltip>
+					</div>
+					
+					{/* 第二行：特效变体 */}
+					<div className='flex items-center gap-3 justify-center'>
+						<Tooltip content='Neon 霓虹灯效果' variant='neon'>
+							<Button variant='outline' size='sm'>Neon</Button>
+						</Tooltip>
+						<Tooltip content='Gradient 渐变效果' variant='gradient'>
+							<Button variant='outline' size='sm'>Gradient</Button>
+						</Tooltip>
+						<Tooltip content='Minimal 极简风格' variant='minimal'>
+							<Button variant='outline' size='sm'>Minimal</Button>
+						</Tooltip>
+					</div>
+					
+					{/* 第三行：状态变体 */}
+					<div className='flex items-center gap-3 justify-center'>
+						<Tooltip content='Success 成功状态' variant='success'>
+							<Button variant='outline' size='sm'>✓</Button>
+						</Tooltip>
+						<Tooltip content='Warning 警告状态' variant='warning'>
+							<Button variant='outline' size='sm'>⚠</Button>
+						</Tooltip>
+						<Tooltip content='Error 错误状态' variant='error'>
+							<Button variant='outline' size='sm'>✕</Button>
+						</Tooltip>
+					</div>
+				</div>
+				
+				{/* 尺寸展示 */}
+				<div className='space-y-3 pt-3 border-t border-gray-100'>
+					<div className='text-xs font-medium text-secondary mb-2'>📏 尺寸对比</div>
+					<div className='flex items-center gap-3 justify-center'>
+						<Tooltip content='小尺寸' size='sm'>
+							<Button variant='outline' size='sm'>Small</Button>
+						</Tooltip>
+						<Tooltip content='中等尺寸' size='md'>
+							<Button variant='outline' size='sm'>Medium</Button>
+						</Tooltip>
+						<Tooltip content='大尺寸' size='lg'>
+							<Button variant='outline' size='sm'>Large</Button>
+						</Tooltip>
+					</div>
+				</div>
+				
+				{/* 位置展示 */}
+				<div className='space-y-3 pt-3 border-t border-gray-100'>
+					<div className='text-xs font-medium text-secondary mb-2'>📍 位置展示</div>
+					
+					{/* 基础位置 */}
+					<div className='space-y-2'>
+						<div className='text-[11px] text-gray-500'>基础位置</div>
+						<div className='flex items-center gap-3 justify-center'>
+							<Tooltip content='顶部提示' position='top'>
+								<Button variant='outline' size='sm'>Top</Button>
+							</Tooltip>
+							<Tooltip content='底部提示' position='bottom'>
+								<Button variant='outline' size='sm'>Bottom</Button>
+							</Tooltip>
+							<Tooltip content='左侧提示' position='left'>
+								<Button variant='outline' size='sm'>Left</Button>
+							</Tooltip>
+							<Tooltip content='右侧提示' position='right'>
+								<Button variant='outline' size='sm'>Right</Button>
+							</Tooltip>
+						</div>
+					</div>
+					
+					{/* 扩展位置 */}
+					<div className='space-y-2'>
+						<div className='text-[11px] text-gray-500'>扩展位置</div>
+						<div className='flex items-center gap-3 justify-center'>
+							<Tooltip content='左上角' position='top-start'>
+								<Button variant='outline' size='sm'>TL</Button>
+							</Tooltip>
+							<Tooltip content='右上角' position='top-end'>
+								<Button variant='outline' size='sm'>TR</Button>
+							</Tooltip>
+							<Tooltip content='左下角' position='bottom-start'>
+								<Button variant='outline' size='sm'>BL</Button>
+							</Tooltip>
+							<Tooltip content='右下角' position='bottom-end'>
+								<Button variant='outline' size='sm'>BR</Button>
+							</Tooltip>
+						</div>
+					</div>
+				</div>
+				
+				{/* 特殊功能 */}
+				<div className='space-y-3 pt-3 border-t border-gray-100'>
+					<div className='text-xs font-medium text-secondary mb-2'>⚙️ 特殊功能</div>
+					
+					{/* 无箭头 */}
+					<div className='space-y-2'>
+						<div className='text-[11px] text-gray-500'>无箭头模式</div>
+						<div className='flex items-center gap-3 justify-center'>
+							<Tooltip content='无箭头的提示' arrow={false}>
+								<Button variant='outline' size='sm'>No Arrow</Button>
+							</Tooltip>
+						</div>
+					</div>
+					
+					{/* 自定义延迟 */}
+					<div className='space-y-2'>
+						<div className='text-[11px] text-gray-500'>自定义延迟</div>
+						<div className='flex items-center gap-3 justify-center'>
+							<Tooltip content='立即显示' delay={0}>
+								<Button variant='outline' size='sm'>0ms</Button>
+							</Tooltip>
+							<Tooltip content='延迟500ms' delay={500}>
+								<Button variant='outline' size='sm'>500ms</Button>
+							</Tooltip>
+							<Tooltip content='延迟1000ms' delay={1000}>
+								<Button variant='outline' size='sm'>1000ms</Button>
+							</Tooltip>
+						</div>
+					</div>
+					
+					{/* 禁用状态 */}
+					<div className='space-y-2'>
+						<div className='text-[11px] text-gray-500'>禁用状态</div>
+						<div className='flex items-center gap-3 justify-center'>
+							<Tooltip content='这个提示被禁用了' disabled>
+								<Button variant='outline' size='sm' disabled>Disabled</Button>
+							</Tooltip>
+						</div>
+					</div>
+				</div>
 			</div>
 		),
 		'tag-input': (
@@ -578,12 +712,19 @@ export default function ComponentsDemoPage() {
 			id: 'tooltip',
 			name: 'Tooltip',
 			category: 'basic',
-			description: '提示框组件，支持四个方向和自定义延迟',
+			description: '高级提示框组件，支持9种样式变体、12种位置、3种尺寸和丰富的交互功能',
 			icon: '💡',
 			props: [
 				{ name: 'content', type: 'ReactNode', default: 'required', description: '提示内容' },
-				{ name: 'position', type: "'top' | 'bottom' | 'left' | 'right'", default: "'top'", description: '显示位置' },
-				{ name: 'delay', type: 'number', default: '200', description: '延迟时间(ms)' }
+				{ name: 'position', type: "'top' | 'bottom' | 'left' | 'right' | 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end' | 'left-start' | 'left-end' | 'right-start' | 'right-end'", default: "'top'", description: '显示位置' },
+				{ name: 'variant', type: "'default' | 'dark' | 'glass' | 'neon' | 'gradient' | 'minimal' | 'success' | 'warning' | 'error'", default: "'default'", description: '样式变体' },
+				{ name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: '提示框尺寸' },
+				{ name: 'delay', type: 'number', default: '200', description: '显示延迟时间(ms)' },
+				{ name: 'hideDelay', type: 'number', default: '100', description: '隐藏延迟时间(ms)' },
+				{ name: 'disabled', type: 'boolean', default: 'false', description: '是否禁用' },
+				{ name: 'arrow', type: 'boolean', default: 'true', description: '是否显示箭头' },
+				{ name: 'onClick', type: '() => void', default: '-', description: '点击回调' },
+				{ name: 'className', type: 'string', default: '-', description: '自定义类名' }
 			]
 		},
 		{
