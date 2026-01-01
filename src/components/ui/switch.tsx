@@ -145,7 +145,7 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
 					disabled={disabled || loading}
 					className={cn(
 						'relative inline-flex flex-shrink-0 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2',
-						focus: disabled ? 'focus:ring-0' : 'focus:ring-brand/50',
+						disabled ? 'focus:ring-0' : 'focus:ring-brand/50',
 						disabled && 'cursor-not-allowed opacity-50',
 						!disabled && !loading && 'hover:scale-105 active:scale-95',
 						currentVariant.track,
